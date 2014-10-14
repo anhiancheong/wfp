@@ -24,7 +24,7 @@ public class Profile {
 	
 	/*A list of all attributes for this person from the website
 	 *A list is used to handle if a person has more than 1 value for any attribute*/
-	ArrayList<Attribute> attributes;
+	HashMap<String, AttributeSet> attributeSets;
 	
 	public Profile(String fName, String lName, String inptWebsite, String inptProfileId) {
 		// TODO Auto-generated constructor stub
@@ -32,6 +32,7 @@ public class Profile {
 		lastName = lName;
 		website = inptWebsite;
 		profileId = inptProfileId;
+		attributeSets = new HashMap<String, AttributeSet>();
 	}
 
 	public void queryAttributes() {
@@ -41,7 +42,11 @@ public class Profile {
 			while(rs.next()) {
 				String attrName = rs.getString("attribute_name");
 				String attrVal = rs.getString("attribute_value");
-				attributes.add(new Attribute(attrName, attrVal));
+				if(attributeSets.containsKey(attrName)) {
+					attributeSets.put(attrName, new AttributeSet(attrName));
+				}
+				
+				attributeSets.get(attrName).add(new Attribute(attrName, attrVal, website));
 			}
 		}
 		catch(SQLException e) {
@@ -62,21 +67,18 @@ public class Profile {
 		
 		HashMap<String, String> knownVals = new HashMap();
 		for(Attribute attr: knownAttr) {
-			knownVals.put(attr.getVal(), attr.getName());
+			knownVals.put(attr.getName(), attr.getVal());
 		}
 		
-		for(Attribute attr: attributes) {
-			if (knownVals.containsKey(attr.getVal())) {
-				if (knownVals.get(attr.getVal()) == attr.getName()) {
-					knownFound++;
-				}
+		for(String key: knownVals.keySet()) {
+			if(attributeSets.get(key).hasValue(knownVals.get(key))) {
+				knownFound++;
 			}
 		}
 		// Case where the profile fails to meet the necessary number of attributes in the core
 		if (knownFound < totalKnown) {
 			return true;
 		}
-		
 		return false;
 	}
 	

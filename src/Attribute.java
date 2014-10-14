@@ -18,6 +18,13 @@ public class Attribute {
 		attrName = inptAttrName;
 		attrVal = inptAttrVal;
 	}
+	
+	public Attribute(String inptAttrName, String inptAttrVal, String inptSource) {
+		attrName = inptAttrName;
+		attrVal = inptAttrVal;
+		source = inptSource;
+	}
+	
 	public Attribute(String inptAttrName, String inptAttrVal, double prob,
 			String inptSource) {
 		attrName = inptAttrName;
@@ -36,6 +43,10 @@ public class Attribute {
 	
 	public String getVal() {
 		return attrVal;
+	}
+	
+	public String getSource() {
+		return source;
 	}
 	
 	public int hashCode() {

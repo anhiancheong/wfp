@@ -10,13 +10,13 @@ public class ProfileSet {
 	/*Set of profiles*/
 	ArrayList<Profile> profiles;
 	
-	ArrayList<Attribute> setAttributes;
+	HashMap<String, AttributeSet> setLevelAttributes;
 	
 	String source;
 	
 	public ProfileSet () {
 		profiles = new ArrayList<Profile>();
-		setAttributes = new ArrayList<Attribute>();
+		setLevelAttributes = new HashMap<String, AttributeSet>();
 		source = "";
 	}
 	
@@ -91,6 +91,7 @@ public class ProfileSet {
 				valueCount.put(attr.getVal(), valueCount.get(attr.getVal()) + 1);
 			}
 			
+			//Setup the profile set level attributes
 			for(String attrVal: valueCount.keySet()) {
 				double prob = valueCount.get(attrVal) / numVals;
 				if (prob >= Constants.websiteThreshold) {
