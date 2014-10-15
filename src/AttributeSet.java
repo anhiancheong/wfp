@@ -68,7 +68,6 @@ public class AttributeSet {
 				seen.put(curAttr.hashCode(), true);
 			}
 		}
-		
 		return retAttr;
 	}
 	
@@ -87,5 +86,14 @@ public class AttributeSet {
 	
 	public ArrayList<Attribute> getAttributes() {
 		return valInstances;
+	}
+	
+	public String toString() {
+		String output = attrName + " : {";
+		for(Attribute attr: valInstances) {
+			output += attr.toString();
+		}
+		output += "}";
+		return output;
 	}
 }

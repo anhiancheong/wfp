@@ -13,6 +13,10 @@ public class Attribute {
 	double confidence = 0.0;
 	String source = "";
 	
+	//non essential data members used for cross-site inference
+	int count = 0;
+	double totalConf = 0.0;
+	
 	public Attribute(String inptAttrName, String inptAttrVal) {
 		// TODO Auto-generated constructor stub
 		attrName = inptAttrName;
@@ -49,7 +53,40 @@ public class Attribute {
 		return source;
 	}
 	
+	public int getCount() {
+		return count;
+	}
+	
+	public void addConfToTotal(double inptConf){
+		totalConf += inptConf;
+		count++;
+	}
+	
+	public double getAvgConf() {
+		return totalConf / count;
+	}
+	
+	
+	
 	public int hashCode() {
 		return new HashCodeBuilder(17,31).append(attrName).append(attrVal).toHashCode();
+	}
+	
+	public String toString(){
+		String output = "";
+		output += attrName + " : ";
+		output += attrVal + " - conf: ";
+		output += confidence + " src= ";
+		output += source;
+		return output;
+	}
+
+	/*Method will update the confidence if it's higher, and update the sources*/
+	public void maybeUpdate(Attribute curNewAttr) {
+		// TODO Auto-generated method stub
+		if(curNewAttr.confidence > confidence) {
+			confidence = curNewAttr.confidence;
+			source += "," + curNewAttr.getSource();
+		}
 	}
 }

@@ -45,6 +45,11 @@ public class ProfileSet {
 
 	}
 	
+	public void clear() {
+		profiles = new ArrayList<Profile>();
+		setLevelAttributes = new HashMap<String, AttributeSet>();
+	}
+	
 	/*
 	 * Function to remove all profiles that don't have the attribute values
 	 * This will handle only analyzing profile that meet the requirements of attribute set given
@@ -62,42 +67,23 @@ public class ProfileSet {
 		 * - Iterate across all profiles
 		 * - Count the occurences of a given attribute name-value pair
 		 * - Calculate the probability of that attribute in this profile set*/
-		ArrayList<Attribute> allAttr = new ArrayList<Attribute>();
-		
-		//Combine all attributes from all profiles
+		HashMap<String, AttributeSet> profileSetAttributes = new HashMap<String, AttributeSet>();
 		for(Profile p: profiles) {
-			allAttr.addAll(p.attributes);
-		}
-		//Tracks the number of times a certain hash
-		HashMap<String, ArrayList<Attribute>> attrHashMap = new HashMap<String, ArrayList<Attribute>>();
-		
-		//Populate the attrHashMap, collect all attributes of the same attribute name
-		for(Attribute attr: allAttr) {
-			if(!attrHashMap.containsKey(attr.getName())){
-				attrHashMap.put(attr.getName(), new ArrayList<Attribute>());
-			}
-			attrHashMap.get(attr.getName()).add(attr);
-		}
-		//iterate through the arrayList for each attribute Name, sum up occurrences of each value
-		//see if any meet the threshold and add them to a set level set of attributes
-		for(String attrName: attrHashMap.keySet()) {
-			HashMap<String, Integer> valueCount = new HashMap<String, Integer>();
-			ArrayList<Attribute> attrVals = attrHashMap.get(attrName);
-			int numVals = attrVals.size();
-			for(Attribute attr: attrVals) {
-				if(valueCount.containsKey(attr.getVal())) {
-					valueCount.put(attr.getVal(), 0);
-				}
-				valueCount.put(attr.getVal(), valueCount.get(attr.getVal()) + 1);
-			}
-			
-			//Setup the profile set level attributes
-			for(String attrVal: valueCount.keySet()) {
-				double prob = valueCount.get(attrVal) / numVals;
-				if (prob >= Constants.websiteThreshold) {
-					setAttributes.add(new Attribute(attrName, attrVal, prob, source));
-				}
+			for(String key: p.attributeSets.keySet()){
+			  if(!profileSetAttributes.containsKey(key)){
+				  profileSetAttributes.put(key, new AttributeSet(key));
+			  }	
+			  profileSetAttributes.get(key).mergeAttributes(p.attributeSets.get(key).getAttributes());
 			}
 		}
+		setLevelAttributes = profileSetAttributes;
+	}//end method
+	
+	public ArrayList<Attribute> getAttrAboveThreshold(double threshold){
+		ArrayList<Attribute> retList = new ArrayList<Attribute>();
+		for(String key: setLevelAttributes.keySet()) {
+			retList.addAll(setLevelAttributes.get(key).getValidAttributes(threshold));
+		}
+		return retList;
 	}
 }
