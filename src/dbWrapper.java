@@ -68,7 +68,7 @@ public class dbWrapper {
 		execute();
 		String nameMappingId = "-1";
 		try {
-			currentResultSet.next();
+			currentResultSet.first();
 			nameMappingId = currentResultSet.getString("name_id");
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

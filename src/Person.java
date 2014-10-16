@@ -135,6 +135,7 @@ public class Person {
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(fileDump);
 			bw.close();
+			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
