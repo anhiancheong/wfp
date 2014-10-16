@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 
@@ -89,12 +90,18 @@ public class dbWrapper {
 
 	public ArrayList<String> queryWebsiteId(String website, String nameMappingId) {
 		// TODO Auto-generated method stub
+		debugPrint.print("Querying website: " + website + "for name id: " + nameMappingId);
 		ArrayList<String> ids = new ArrayList<String>();
 		currentQuery = "SELECT website_id FROM " + website + " WHERE name_id_source = " + nameMappingId + " ;";
 		execute();
+		HashSet<String> idsSeen = new HashSet<String>();
 		try {
 			while(currentResultSet.next()) {
-				ids.add(currentResultSet.getString("website_id"));
+				String curId = currentResultSet.getString("website_id");
+				if(!idsSeen.contains(curId)) {
+					idsSeen.add(curId);
+					ids.add(curId);
+				}
 			}
 		}
 	    catch (SQLException e1) {

@@ -30,7 +30,7 @@ public class ProfileSet {
 		 * - Query the specified website table for profile ids of the relevant profiles
 		 * - For each profile, create a profile object, have profile object collect their attributes
 		 * */
-		dbWrapper db = new dbWrapper();
+		dbWrapper db = dbWrapper.db;
 		ArrayList<String> ids = dbWrapper.db.queryWebsiteId(website, nameMappingId);
 		debugPrint.print(ids.toString());
 		
