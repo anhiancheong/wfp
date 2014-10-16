@@ -90,7 +90,7 @@ public class dbWrapper {
 
 	public ArrayList<String> queryWebsiteId(String website, String nameMappingId) {
 		// TODO Auto-generated method stub
-		debugPrint.print("Querying website: " + website + "for name id: " + nameMappingId);
+		debugPrint.print("Querying website: " + website + " for name id: " + nameMappingId);
 		ArrayList<String> ids = new ArrayList<String>();
 		currentQuery = "SELECT website_id FROM " + website + " WHERE name_id_source = " + nameMappingId + " ;";
 		execute();

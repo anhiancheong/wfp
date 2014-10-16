@@ -37,9 +37,11 @@ public class ProfileSet {
 		for(String id: ids) {
 			// Add profile to the list
 			//Construct a new profile object for each id
+			debugPrint.print("Making new profile object for id: " + id);
 			Profile p = new Profile(firstName, lastName, website, id);
 			//Populate the attributes for this profile
 			p.queryAttributes();
+			
 			profiles.add(p);
 		}
 
