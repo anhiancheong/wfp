@@ -32,6 +32,7 @@ public class driver {
         experimentPerson.outputStateToLog("After Initial Attributes Collected");
         //while inference is true, infer
         int round = 1;
+        debugPrint.print("Starting Inference");
         while(experimentPerson.infer()){
         	debugPrint.print("Infering.....");
         	experimentPerson.outputStateToLog("Inference Round " + round);
