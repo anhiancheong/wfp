@@ -42,7 +42,7 @@ public class Profile {
 			while(rs.next()) {
 				String attrName = rs.getString("attribute_name");
 				String attrVal = rs.getString("attribute_value");
-				if(attributeSets.containsKey(attrName)) {
+				if(!attributeSets.containsKey(attrName)) {
 					attributeSets.put(attrName, new AttributeSet(attrName));
 				}
 				
