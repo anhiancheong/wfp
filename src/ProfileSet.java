@@ -82,7 +82,9 @@ public class ProfileSet {
 	}//end method
 	
 	public ArrayList<Attribute> getAttrAboveThreshold(double threshold){
+		debugPrint.print("Determining which attributes are above threshold");
 		ArrayList<Attribute> retList = new ArrayList<Attribute>();
+		//For each attribute set, get all attributes above the threshold
 		for(String key: setLevelAttributes.keySet()) {
 			retList.addAll(setLevelAttributes.get(key).getValidAttributes(threshold));
 		}

@@ -55,15 +55,14 @@ public class AttributeSet {
 	
 	/* Function returns a set of attributes of all name value pairs that meet the input threshold*/
 	public ArrayList<Attribute> getValidAttributes (double threshold) {
+		
 		ArrayList<Attribute> retAttr = new ArrayList<Attribute>();
 		HashMap<Integer, Boolean> seen = new HashMap<Integer, Boolean>();
-		//Create a mapping of all possible values
-		//Calculate probability of each attribute
-		//add valid attribute to return array
-		//Concatenate sources
+
 		for(Attribute curAttr: valInstances) {
 			double tempProb = findProb(curAttr);
 			if(tempProb > threshold && seen.containsKey(curAttr.hashCode())) {
+				debugPrint.print("Found value above the threshold");
 				retAttr.add(new Attribute(curAttr.getName(), curAttr.getVal(), tempProb, getAllSources(curAttr)));
 				seen.put(curAttr.hashCode(), true);
 			}
