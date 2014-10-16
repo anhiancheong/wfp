@@ -62,6 +62,7 @@ public class AttributeSet {
 
 		for(Attribute curAttr: valInstances) {
 			double tempProb = findProb(curAttr);
+			debugPrint.print("Probablility of attribute: " + curAttr.getName() + " - " + curAttr.getVal() + " is: " + tempProb);
 			if(tempProb > threshold && seen.containsKey(curAttr.hashCode())) {
 				debugPrint.print("Found value above the threshold");
 				retAttr.add(new Attribute(curAttr.getName(), curAttr.getVal(), tempProb, getAllSources(curAttr)));

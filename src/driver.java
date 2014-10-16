@@ -38,6 +38,7 @@ public class driver {
         	experimentPerson.outputStateToLog("Inference Round " + round);
         	round++;
         }
+        experimentPerson.outputStateToLog("After last Inference Round");
         //call population engine
         
         
