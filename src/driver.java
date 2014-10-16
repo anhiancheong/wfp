@@ -26,7 +26,7 @@ public class driver {
         //read in config file
         loadConfig("testConfig.txt");
         //initialize person
-        Person experimentPerson = new Person("Dorothy", "Jean", websitesUsed);
+        Person experimentPerson = new Person("Anna", "Genis", websitesUsed);
         //populate initial values of person
         experimentPerson.populateInitialAttributes(initialAttributeNames);
         experimentPerson.outputStateToLog("After Initial Attributes Collected");

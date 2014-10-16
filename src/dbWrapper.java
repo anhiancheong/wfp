@@ -73,6 +73,8 @@ public class dbWrapper {
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			debugPrint.print("Error happened in Name Mapping lookup for person: " + firstName + " " + lastName);
+			System.exit(0);
 		}
 		return nameMappingId;
 	}
