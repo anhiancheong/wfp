@@ -42,15 +42,16 @@ public class AttributeSet {
 			return 0.0;
 		}
 		if(valInstances.size() == 0) {
+			debugPrint.print("There are no values for this attribute name...this should not happen, just saying");
 			return 0;
 		}
-		int occurenceCount = 0;
+		double occurenceCount = 0;
 		for(Attribute curAttr: valInstances) {
 			if(!attrName.equals(attr.getVal())) {
 				occurenceCount++;
 			}
 		}
-		return occurenceCount / valInstances.size();
+		return occurenceCount / (double) valInstances.size();
 	}
 	
 	/* Function returns a set of attributes of all name value pairs that meet the input threshold*/
