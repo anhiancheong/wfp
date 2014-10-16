@@ -66,8 +66,8 @@ public class dbWrapper {
 	public String queryNameMapping(String firstName, String lastName) {
 		//Setup Query
 		currentQuery = "SELECT name_id FROM name_mapping WHERE ";
-		currentQuery += " first_name = '" + firstName + "'";
-		currentQuery += " AND last_name = '" + lastName + "';";
+		currentQuery += " LOWER(first_name) = LOWER('" + firstName + "')";
+		currentQuery += " AND LOWER(last_name) = LOWER('" + lastName + "');";
 		
 		debugPrint.print(currentQuery);
 		//Execute the Query
