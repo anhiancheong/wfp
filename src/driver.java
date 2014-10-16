@@ -12,8 +12,8 @@ import org.json.JSONTokener;
 
 public class driver {
 
-	ArrayList<String> websitesUsed = new ArrayList<String>();
-	ArrayList<String> initialAttributeNames = new ArrayList<String>();
+	static ArrayList<String> websitesUsed = new ArrayList<String>();
+	static ArrayList<String> initialAttributeNames = new ArrayList<String>();
 	/**
 	 * @param args
 	 */
@@ -24,19 +24,26 @@ public class driver {
         driver.testNameFetch();
         debugPrint.print("Driver finished");
         //read in config file
-        
+        loadConfig("testConfig.txt");
         //initialize person
-        
+        Person experimentPerson = new Person("Dorothy", "Jean", websitesUsed);
         //populate initial values of person
-        
+        experimentPerson.populateInitialAttributes(initialAttributeNames);
+        experimentPerson.outputStateToLog("After Initial Attributes Collected");
         //while inference is true, infer
-        
+        int round = 1;
+        while(experimentPerson.infer()){
+        	debugPrint.print("Infering.....");
+        	experimentPerson.outputStateToLog("Inference Round " + round);
+        	round++;
+        }
         //call population engine
+        
         
         //while inference is true
         
         //post results to database
-		
+		experimentPerson.outputLogToFile();
 	}
 
 	
@@ -49,7 +56,7 @@ public class driver {
 	/** This method will read a json configured file and load the various run parameters
 	 *  I just used Tavish's code for this part
 	 * */
-	public void loadConfig(String filename) {
+	public static void loadConfig(String filename) {
 		try {
 			Reader read = null;
 			read = new FileReader(new File(filename));

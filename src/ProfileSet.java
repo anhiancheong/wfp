@@ -14,10 +14,10 @@ public class ProfileSet {
 	
 	String source;
 	
-	public ProfileSet () {
+	public ProfileSet (String src) {
 		profiles = new ArrayList<Profile>();
 		setLevelAttributes = new HashMap<String, AttributeSet>();
-		source = "";
+		source = src;
 	}
 	
 	/*TODO

@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,15 +31,30 @@ public class Person {
 	
 	HashMap<Integer, Attribute> coreAttributes;
 	
-	public Person(String fname, String lname) {
+	String fileDump = "";
+	
+	public Person(String fname, String lname, ArrayList<String> websiteNames) {
 		firstName = fname;
 		lastName = lname;
 		nameMappingId = dbWrapper.db.queryNameMapping(firstName, lastName); 
+		initialAttributes = new ArrayList<Attribute>();
+		websites = new HashMap<String, ProfileSet>();
+		coreAttributes = new HashMap<Integer, Attribute>();
+		
+		for(String web: websiteNames) {
+			websites.put(web, new ProfileSet(web));
+		}
 	}
 	//Query database for the ground truth values, returns false if the initial values could not
 	//be populated
 	public boolean populateInitialAttributes(ArrayList<String> initialAttrNames) {
 		
+		
+		//TODO database call
+		
+		for(Attribute attr: initialAttributes) {
+			coreAttributes.put(attr.hashCode(), attr);
+		}
 		return false;
 	}
 	
@@ -94,8 +112,34 @@ public class Person {
 			}
 			coreAttributes.get(curNewAttr.hashCode()).maybeUpdate(curNewAttr);
 		}
-		
 		return updated;
 	}
+	
+	/*If we find a high confidence profile ID in a cross site value, then we want to
+	 * do a lookup on that profile ID and add all attributes from that profile with X confidence*/
+	public void checkForProfileIds() {
+		
+	}
+	
+	public void outputStateToLog(String stateHeader){
+		fileDump += "\n ========== " + stateHeader + "==========\n";
+		for(Attribute attr: coreAttributes.values()) {
+			fileDump += attr.toString() + "\n";
+		}
+	}
+	
+	public void outputLogToFile(){
+		FileWriter fw;
+		try {
+			fw = new FileWriter("Log" + Constants.experimentID + ".txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(fileDump);
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
