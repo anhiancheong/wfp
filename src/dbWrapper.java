@@ -52,6 +52,10 @@ public class dbWrapper {
 			if(currentStatement.getResultSet() != null){
 				currentResultSet = currentStatement.getResultSet();
 			}
+			else {
+				debugPrint.print("Query returned null");
+				debugPrint.print("Query: " + currentQuery);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,11 +68,15 @@ public class dbWrapper {
 		currentQuery = "SELECT name_id FROM name_mapping WHERE ";
 		currentQuery += " first_name = '" + firstName + "'";
 		currentQuery += " AND last_name = '" + lastName + "';";
+		
+		debugPrint.print(currentQuery);
 		//Execute the Query
 		execute();
 		String nameMappingId = "-1";
 		try {
-			currentResultSet.first();
+			if(currentResultSet.first()) {
+				debugPrint.print("result set is at first row");
+			}
 			nameMappingId = currentResultSet.getString("name_id");
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
