@@ -141,7 +141,7 @@ public class dbWrapper {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		
+		debugPrint.print("Added " + returnAttr.size() + " initial values", 3);
 		return returnAttr;
 	}
 }

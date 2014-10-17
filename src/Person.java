@@ -61,6 +61,7 @@ public class Person {
 		
 		
 		for(Attribute attr: initialAttributesFromDB) {
+			initialAttributes.add(attr);
 			coreAttributes.put(attr.hashCode(), attr);
 			foundAttributes.add(attr.getName());
 			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 3);
