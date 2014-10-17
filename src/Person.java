@@ -53,6 +53,7 @@ public class Person {
 		
 		for(Attribute attr: initialAttributes) {
 			coreAttributes.put(attr.hashCode(), attr);
+			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 1);
 		}
 		return false;
 	}
@@ -62,17 +63,21 @@ public class Person {
 		boolean retVal = false;
 		boolean indivResult = false;
 		boolean crossResult = false;
+		
+		//setup value filter list BEFORE the loop for websites
+		//otherwise each website will affect the next
+		ArrayList<Attribute> filterList = new ArrayList<Attribute>();
+		for(Attribute attr: coreAttributes.values()){
+			filterList.add(attr);
+		}
+		
 		// Handle Individual Website inference
 		for(String website: websites.keySet()) {
 			ProfileSet ps = websites.get(website);
 			ps.clear();
 			//debugPrint.print("Getting profiles...");
 			ps.getProfiles(firstName, lastName, website, nameMappingId);
-			
-			ArrayList<Attribute> filterList = new ArrayList<Attribute>();
-			for(Attribute attr: coreAttributes.values()){
-				filterList.add(attr);
-			}
+
 			debugPrint.print("Filtering profiles....",3);
 			ps.filterProfiles(filterList);
 			//debugPrint.print("Calculating individual website attributes....");
