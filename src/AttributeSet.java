@@ -42,7 +42,7 @@ public class AttributeSet {
 			return 0.0;
 		}
 		if(valInstances.size() == 0) {
-			debugPrint.print("There are no values for this attribute name...this should not happen, just saying");
+			//debugPrint.print("There are no values for this attribute name...this should not happen, just saying");
 			return 0;
 		}
 		double occurenceCount = 0;
@@ -62,9 +62,9 @@ public class AttributeSet {
 
 		for(Attribute curAttr: valInstances) {
 			double tempProb = findProb(curAttr);
-			debugPrint.print("Probablility of attribute: " + curAttr.getName() + " - " + curAttr.getVal() + " is: " + tempProb);
+			//debugPrint.print("Probablility of attribute: " + curAttr.getName() + " - " + curAttr.getVal() + " is: " + tempProb);
 			if(tempProb > threshold && !seen.containsKey(curAttr.hashCode())) {
-				debugPrint.print("Found value above the threshold");
+				//debugPrint.print("Found value above the threshold");
 				retAttr.add(new Attribute(curAttr.getName(), curAttr.getVal(), tempProb, getAllSources(curAttr)));
 				seen.put(curAttr.hashCode(), true);
 			}

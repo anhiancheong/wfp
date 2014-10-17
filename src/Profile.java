@@ -43,7 +43,7 @@ public class Profile {
 				String attrName = rs.getString("attribute_name");
 				String attrVal = rs.getString("attribute_value");
 				if(!attributeSets.containsKey(attrName)) {
-					debugPrint.print("Adding new attribute to person : " + profileId + " -- " + attrName + " - " + attrVal);
+					//debugPrint.print("Adding new attribute to person : " + profileId + " -- " + attrName + " - " + attrVal);
 					attributeSets.put(attrName, new AttributeSet(attrName));
 				}
 				
