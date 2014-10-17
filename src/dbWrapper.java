@@ -117,4 +117,31 @@ public class dbWrapper {
 		execute();
 		return currentResultSet;
 	}
+
+	public ArrayList<Attribute> getInitialAttributes( String firstName, String lastName,
+			ArrayList<String> initialAttrNames) {
+		
+		ArrayList<Attribute> returnAttr = new ArrayList<Attribute>();
+		currentQuery = "SELECT * from gt_person_attributes where lower(first_name) = lower('" + firstName + "')";
+		currentQuery += " and lower(last_name) =lower('" + lastName + "');";
+		execute();
+		
+		try {
+			while(currentResultSet.next()) {
+				String attrName = currentResultSet.getString("attribute_name");
+				String attrVal = currentResultSet.getString("attribute_value");
+				if(initialAttrNames.contains(attrName)) {
+					if(!attrName.equals("first_name") && !attrName.equals("last_name")){
+						returnAttr.add(new Attribute(attrName, attrVal, 1.0, "Initial"));
+					}
+					
+				}
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return returnAttr;
+	}
 }

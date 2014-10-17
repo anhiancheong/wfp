@@ -50,12 +50,21 @@ public class Person {
 	public boolean populateInitialAttributes(ArrayList<String> initialAttrNames) {
 	
 		//TODO database call
+		ArrayList<Attribute> initialAttributesFromDB = dbWrapper.db.getInitialAttributes(firstName, lastName, initialAttrNames);
 		
+		//check if sufficient attributes are present
+		
+		HashSet<String> foundAttributes = new HashSet<String>();
 		for(Attribute attr: initialAttributes) {
 			coreAttributes.put(attr.hashCode(), attr);
+			foundAttributes.add(attr.getName());
 			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 1);
 		}
-		return false;
+		if(foundAttributes.size() != initialAttrNames.size()){
+			debugPrint.print("Insufficient number of ground truth values found; invalid profile",2);
+			return false;
+		}
+		return true;
 	}
 	
 	/*This method launches the primary inference process and returns true if values in its core have changed*/
