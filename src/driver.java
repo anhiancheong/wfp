@@ -22,7 +22,7 @@ public class driver {
 		dbWrapper.initGlobalWrapper();
 
         driver.testNameFetch();
-        debugPrint.print("Driver finished");
+        //debugPrint.print("Driver finished");
         //read in config file
         loadConfig("testConfig.txt");
         //initialize person
@@ -32,9 +32,9 @@ public class driver {
         experimentPerson.outputStateToLog("After Initial Attributes Collected");
         //while inference is true, infer
         int round = 1;
-        debugPrint.print("Starting Inference");
+        //debugPrint.print("Starting Inference");
         while(experimentPerson.infer()){
-        	debugPrint.print("Infering.....");
+        	//debugPrint.print("Infering.....");
         	experimentPerson.outputStateToLog("Inference Round " + round);
         	round++;
         }
@@ -52,7 +52,7 @@ public class driver {
 	public static void testNameFetch() {
 		
 		String id = dbWrapper.db.queryNameMapping("anna", "genis");
-		debugPrint.print("Name Mapping Id for Anna Genis is: " + id);
+		//debugPrint.print("Name Mapping Id for Anna Genis is: " + id);
 	}
 	
 	/** This method will read a json configured file and load the various run parameters
@@ -95,7 +95,7 @@ public class driver {
 				initialAttributeNames.add(tempInit.getString(i));
 			}
 
-			debugPrint.print("Finished reading config file");
+			//debugPrint.print("Finished reading config file");
 			
 		}//end of try block
 		catch(IOException ie){

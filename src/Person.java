@@ -66,21 +66,21 @@ public class Person {
 		for(String website: websites.keySet()) {
 			ProfileSet ps = websites.get(website);
 			ps.clear();
-			debugPrint.print("Getting profiles...");
+			//debugPrint.print("Getting profiles...");
 			ps.getProfiles(firstName, lastName, website, nameMappingId);
 			
 			ArrayList<Attribute> filterList = new ArrayList<Attribute>();
 			for(Attribute attr: coreAttributes.values()){
 				filterList.add(attr);
 			}
-			debugPrint.print("Filtering profiles....");
+			//debugPrint.print("Filtering profiles....");
 			ps.filterProfiles(filterList);
-			debugPrint.print("Calculating individual website attributes....");
+			//debugPrint.print("Calculating individual website attributes....");
 			ps.calculateWebsiteAttributes();
 			indivResult = updateCore(ps.getAttrAboveThreshold(Constants.websiteThreshold));
 		}
 		
-		debugPrint.print("Calculating cross site attributes");
+		//debugPrint.print("Calculating cross site attributes");
 		//handle cross-site inference
 		HashMap<Integer, Attribute> crossSiteAttributes = new HashMap<Integer, Attribute>();
 		for(String website: websites.keySet()) {
@@ -116,8 +116,8 @@ public class Person {
 		
 		for(Attribute curNewAttr: newAttr) {
 			if(!coreAttributes.containsKey(curNewAttr.hashCode())){
-				debugPrint.print("New attribute added to core! I win!");
-				debugPrint.print(curNewAttr.toString());
+				//debugPrint.print("New attribute added to core! I win!");
+				//debugPrint.print(curNewAttr.toString());
 				coreAttributes.put(curNewAttr.hashCode(), curNewAttr);
 			}
 			coreAttributes.get(curNewAttr.hashCode()).maybeUpdate(curNewAttr);

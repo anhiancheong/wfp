@@ -54,13 +54,13 @@ public class dbWrapper {
 				currentResultSet = currentStatement.getResultSet();
 			}
 			else {
-				debugPrint.print("Query returned null");
-				debugPrint.print("Query: " + currentQuery);
+				//debugPrint.print("Query returned null");
+				//debugPrint.print("Query: " + currentQuery);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			debugPrint.print("Error when processing query: \n" + currentQuery);
+			//debugPrint.print("Error when processing query: \n" + currentQuery);
 		}		
 	}
 
@@ -70,27 +70,28 @@ public class dbWrapper {
 		currentQuery += " LOWER(first_name) = LOWER('" + firstName + "')";
 		currentQuery += " AND LOWER(last_name) = LOWER('" + lastName + "');";
 		
-		debugPrint.print(currentQuery);
+		debugPrint.print(currentQuery, 1);
 		//Execute the Query
 		execute();
 		String nameMappingId = "-1";
 		try {
 			if(currentResultSet.first()) {
-				debugPrint.print("result set is at first row");
+				//debugPrint.print("result set is at first row");
 			}
 			nameMappingId = currentResultSet.getString("name_id");
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-			debugPrint.print("Error happened in Name Mapping lookup for person: " + firstName + " " + lastName);
+			//debugPrint.print("Error happened in Name Mapping lookup for person: " + firstName + " " + lastName);
 			System.exit(0);
 		}
+		debugPrint.print("Found id: " + nameMappingId + " for person: " + firstName + " " + lastName, 1);
 		return nameMappingId;
 	}
 
 	public ArrayList<String> queryWebsiteId(String website, String nameMappingId) {
 		// TODO Auto-generated method stub
-		debugPrint.print("Querying website: " + website + " for name id: " + nameMappingId);
+		//debugPrint.print("Querying website: " + website + " for name id: " + nameMappingId);
 		ArrayList<String> ids = new ArrayList<String>();
 		currentQuery = "SELECT website_id FROM " + website + " WHERE name_id_source = " + nameMappingId + " ;";
 		execute();

@@ -32,12 +32,12 @@ public class ProfileSet {
 		 * */
 		dbWrapper db = dbWrapper.db;
 		ArrayList<String> ids = dbWrapper.db.queryWebsiteId(website, nameMappingId);
-		debugPrint.print(ids.toString());
+		//debugPrint.print(ids.toString());
 		
 		for(String id: ids) {
 			// Add profile to the list
 			//Construct a new profile object for each id
-			debugPrint.print("Making new profile object for id: " + id);
+			//debugPrint.print("Making new profile object for id: " + id);
 			Profile p = new Profile(firstName, lastName, website, id);
 			//Populate the attributes for this profile
 			p.queryAttributes();
@@ -82,7 +82,7 @@ public class ProfileSet {
 	}//end method
 	
 	public ArrayList<Attribute> getAttrAboveThreshold(double threshold){
-		debugPrint.print("Determining which attributes are above threshold");
+		//debugPrint.print("Determining which attributes are above threshold");
 		ArrayList<Attribute> retList = new ArrayList<Attribute>();
 		//For each attribute set, get all attributes above the threshold
 		for(String key: setLevelAttributes.keySet()) {
