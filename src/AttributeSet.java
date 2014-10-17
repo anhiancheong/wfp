@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 
-/*Attribute Set represents a single Attribute Name and all instances of values that have occured
+/*Attribute Set represents a single Attribute Name and all instances of values that have occurred
  * for that Attribute Name in some capacity*/
 public class AttributeSet {
 
