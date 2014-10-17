@@ -55,12 +55,17 @@ public class Person {
 		//check if sufficient attributes are present
 		
 		HashSet<String> foundAttributes = new HashSet<String>();
-		for(Attribute attr: initialAttributes) {
+		//Add these so that the count will match up with initial attr names
+		foundAttributes.add("first_name");
+		foundAttributes.add("last_name");
+		
+		
+		for(Attribute attr: initialAttributesFromDB) {
 			coreAttributes.put(attr.hashCode(), attr);
 			foundAttributes.add(attr.getName());
 			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 1);
 		}
-		if(foundAttributes.size() != initialAttrNames.size()){
+		if(foundAttributes.size() < initialAttrNames.size()){
 			debugPrint.print("Insufficient number of ground truth values found; invalid profile",2);
 			return false;
 		}

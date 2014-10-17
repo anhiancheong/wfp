@@ -28,7 +28,10 @@ public class driver {
         //initialize person
         Person experimentPerson = new Person("jennifer", "wong", websitesUsed);
         //populate initial values of person
-        experimentPerson.populateInitialAttributes(initialAttributeNames);
+        if(!experimentPerson.populateInitialAttributes(initialAttributeNames)){
+        	debugPrint.print("Could not the sufficient ground truth values for this person");
+        	return;
+        } 
         experimentPerson.outputStateToLog("After Initial Attributes Collected");
         //while inference is true, infer
         int round = 1;
