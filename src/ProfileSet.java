@@ -33,7 +33,7 @@ public class ProfileSet {
 		dbWrapper db = dbWrapper.db;
 		ArrayList<String> ids = dbWrapper.db.queryWebsiteId(website, nameMappingId);
 		//debugPrint.print(ids.toString());
-		
+		debugPrint.print("Website " + website + " had " + ids.size() + " profiles for people with name: " + firstName + " " + "last_name",3);
 		for(String id: ids) {
 			// Add profile to the list
 			//Construct a new profile object for each id
