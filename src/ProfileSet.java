@@ -62,7 +62,6 @@ public class ProfileSet {
 			if(p.maybeFilter(knownAttr)) {
 				debugPrint.print("Profile being filtered", 3);
 				removeList.add(p);
-				//profiles.remove(p);
 			}
 		}
 		
