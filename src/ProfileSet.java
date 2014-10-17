@@ -59,6 +59,7 @@ public class ProfileSet {
 	public void filterProfiles(ArrayList<Attribute> knownAttr) {
 		for(Profile p: profiles) {
 			if(p.maybeFilter(knownAttr)) {
+				debugPrint.print("Profile being filtered", 3);
 				profiles.remove(p);
 			}
 		}

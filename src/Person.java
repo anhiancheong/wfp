@@ -73,7 +73,7 @@ public class Person {
 			for(Attribute attr: coreAttributes.values()){
 				filterList.add(attr);
 			}
-			//debugPrint.print("Filtering profiles....");
+			debugPrint.print("Filtering profiles....",3);
 			ps.filterProfiles(filterList);
 			//debugPrint.print("Calculating individual website attributes....");
 			ps.calculateWebsiteAttributes();

@@ -1,7 +1,7 @@
 
 public class debugPrint {
     public static boolean debugMode = true;
-    public static int printSet = 1;
+    public static int printSet = 3;
     //print set 1 is database related queries
     //print set 2 is for data population debugging
     //print set 3 is for inference debugging
