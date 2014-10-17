@@ -122,7 +122,7 @@ public class dbWrapper {
 			ArrayList<String> initialAttrNames) {
 		
 		ArrayList<Attribute> returnAttr = new ArrayList<Attribute>();
-		currentQuery = "SELECT * from gt_person_attributes where lower(first_name) = lower('" + firstName + "')";
+		currentQuery = "SELECT * from gt_attributes where lower(first_name) = lower('" + firstName + "')";
 		currentQuery += " and lower(last_name) =lower('" + lastName + "');";
 		execute();
 		
