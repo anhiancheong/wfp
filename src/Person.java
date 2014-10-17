@@ -57,8 +57,6 @@ public class Person {
 		
 		HashSet<String> foundAttributes = new HashSet<String>();
 		//Add these so that the count will match up with initial attr names
-		foundAttributes.add("first_name");
-		foundAttributes.add("last_name");
 		
 		
 		for(Attribute attr: initialAttributesFromDB) {
