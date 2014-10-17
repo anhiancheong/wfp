@@ -82,11 +82,13 @@ public class Attribute {
 	}
 
 	/*Method will update the confidence if it's higher, and update the sources*/
-	public void maybeUpdate(Attribute curNewAttr) {
+	public boolean maybeUpdate(Attribute curNewAttr) {
 		// TODO Auto-generated method stub
 		if(curNewAttr.confidence > confidence) {
 			confidence = curNewAttr.confidence;
 			source += "," + curNewAttr.getSource();
+			return true;
 		}
+		return false;
 	}
 }

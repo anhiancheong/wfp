@@ -63,7 +63,7 @@ public class Person {
 		for(Attribute attr: initialAttributesFromDB) {
 			coreAttributes.put(attr.hashCode(), attr);
 			foundAttributes.add(attr.getName());
-			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 1);
+			debugPrint.print("Attribute was added to the initial starting set " + attr.getName() + " " + attr.getVal(), 3);
 		}
 		if(foundAttributes.size() < initialAttrNames.size()){
 			debugPrint.print("Insufficient number of ground truth values found; invalid profile",2);
@@ -138,8 +138,12 @@ public class Person {
 				//debugPrint.print("New attribute added to core! I win!");
 				//debugPrint.print(curNewAttr.toString());
 				coreAttributes.put(curNewAttr.hashCode(), curNewAttr);
+				updated = true;
 			}
-			coreAttributes.get(curNewAttr.hashCode()).maybeUpdate(curNewAttr);
+			boolean maybeUpdated = coreAttributes.get(curNewAttr.hashCode()).maybeUpdate(curNewAttr);
+			
+			if(maybeUpdated)
+				updated = true;
 		}
 		return updated;
 	}
