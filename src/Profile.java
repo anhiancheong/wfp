@@ -56,31 +56,50 @@ public class Profile {
 	}
 
 	/*Function will check if all of the value pairs in knownAttr are in this profile
-	 * if they aren't the function returns false*/
+	 * if they aren't the function returns false
+	 * True - this profile should be filtered - ie it has contradictory values*/
 	public boolean maybeFilter(ArrayList<Attribute> knownAttr) {
-		// TODO Auto-generated method stub
-		//Check if all known attr are in this profile
-		int totalKnown = knownAttr.size();
-		int knownFound = 0;
-		if( knownAttr.isEmpty()) {
-			return false;
-		}
-		
-		HashMap<String, String> knownVals = new HashMap();
+		//for each variable in known attr, if the value in this profile for that name
+		//contradicts that value, return false
 		for(Attribute attr: knownAttr) {
-			knownVals.put(attr.getName(), attr.getVal());
-		}
-		
-		for(String key: knownVals.keySet()) {
-			if(attributeSets.get(key).hasValue(knownVals.get(key))) {
-				knownFound++;
+			if(attributeSets.containsKey(attr.getName())) {
+				//one of the values must agree with the known value
+				if(!attr.getVal().equals(attributeSets.get(attr.getName()).hasValue(attr.getVal()))) {
+					//The known value is not in this profile
+					debugPrint.print("Known value: " + attr.getVal()+ " is not in this profile (id="+ profileId +"), it will be filtered", 3);
+					return true;
+				}
 			}
-		}
-		// Case where the profile fails to meet the necessary number of attributes in the core
-		if (knownFound < totalKnown) {
-			return true;
 		}
 		return false;
 	}
 	
 }
+
+//OLD CODE
+
+// TODO Auto-generated method stub
+//Check if all known attr are in this profile
+/*
+int totalKnown = knownAttr.size();
+int knownFound = 0;
+if( knownAttr.isEmpty()) {
+	return false;
+}
+
+HashMap<String, String> knownVals = new HashMap();
+for(Attribute attr: knownAttr) {
+	knownVals.put(attr.getName(), attr.getVal());
+}
+
+for(String key: knownVals.keySet()) {
+	if(attributeSets.get(key).hasValue(knownVals.get(key))) {
+		knownFound++;
+	}
+}
+// Case where the profile fails to meet the necessary number of attributes in the core
+if (knownFound < totalKnown) {
+	return true;
+}
+return false;
+*/
