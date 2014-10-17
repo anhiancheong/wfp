@@ -34,7 +34,7 @@ public class driver {
         int round = 1;
         //debugPrint.print("Starting Inference");
         while(experimentPerson.infer()){
-        	//debugPrint.print("Infering.....");
+        	debugPrint.print("Infering.....round" + round,3);
         	experimentPerson.outputStateToLog("Inference Round " + round);
         	round++;
         }
