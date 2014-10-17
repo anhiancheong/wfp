@@ -57,11 +57,17 @@ public class ProfileSet {
 	 * This will handle only analyzing profile that meet the requirements of attribute set given
 	 * */
 	public void filterProfiles(ArrayList<Attribute> knownAttr) {
+		ArrayList<Profile> removeList =  new ArrayList<Profile>();
 		for(Profile p: profiles) {
 			if(p.maybeFilter(knownAttr)) {
 				debugPrint.print("Profile being filtered", 3);
-				profiles.remove(p);
+				removeList.add(p);
+				//profiles.remove(p);
 			}
+		}
+		
+		for(Profile p: removeList) {
+			profiles.remove(p);
 		}
 	}
 	
