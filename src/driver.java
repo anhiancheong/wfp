@@ -88,7 +88,6 @@ public class driver {
 			}
 
 			//Gets the attirbutes for the initial core
-			ArrayList<String> initialCoreAttrs = new ArrayList<String>();
 			JSONArray tempInit = params.getJSONArray("initialCoreAttributes");
 
 			for (int i = 0; i < tempInit.length(); i++) {

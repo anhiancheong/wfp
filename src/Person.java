@@ -50,6 +50,7 @@ public class Person {
 	public boolean populateInitialAttributes(ArrayList<String> initialAttrNames) {
 	
 		//TODO database call
+		debugPrint.print("Number of different attributes expected in initial set: " + initialAttrNames.size(), 3);
 		ArrayList<Attribute> initialAttributesFromDB = dbWrapper.db.getInitialAttributes(firstName, lastName, initialAttrNames);
 		
 		//check if sufficient attributes are present
