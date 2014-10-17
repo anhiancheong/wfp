@@ -47,11 +47,11 @@ public class AttributeSet {
 		}
 		double occurenceCount = 0;
 		for(Attribute curAttr: valInstances) {
-			if(!attrName.equals(attr.getVal())) {
+			if(curAttr.getVal().equals(attr.getVal())) {
 				occurenceCount++;
 			}
 		}
-		return occurenceCount / (double) valInstances.size();
+		return (double)occurenceCount / (double) valInstances.size();
 	}
 	
 	/* Function returns a set of attributes of all name value pairs that meet the input threshold*/
