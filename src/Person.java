@@ -43,6 +43,7 @@ public class Person {
 		
 		for(String web: websiteNames) {
 			websites.put(web, new ProfileSet(web));
+			debugPrint.print("Experiment using website: " + web,3);
 		}
 	}
 	//Query database for the ground truth values, returns false if the initial values could not
