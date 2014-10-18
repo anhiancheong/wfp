@@ -88,6 +88,7 @@ public class Person {
 		
 		// Handle Individual Website inference
 		for(String website: websites.keySet()) {
+			debugPrint.print("Now infering from: " + website, 3);
 			ProfileSet ps = websites.get(website);
 			ps.clear();
 			//debugPrint.print("Getting profiles...");
@@ -100,7 +101,7 @@ public class Person {
 			indivResult = updateCore(ps.getAttrAboveThreshold(Constants.websiteThreshold));
 		}
 		
-		//debugPrint.print("Calculating cross site attributes");
+		debugPrint.print("Calculating cross site attributes");
 		//handle cross-site inference
 		HashMap<Integer, Attribute> crossSiteAttributes = new HashMap<Integer, Attribute>();
 		for(String website: websites.keySet()) {
