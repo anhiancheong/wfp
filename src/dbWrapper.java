@@ -86,6 +86,7 @@ public class dbWrapper {
 			System.exit(0);
 		}
 		debugPrint.print("Found id: " + nameMappingId + " for person: " + firstName + " " + lastName, 1);
+		debugPrint.print("Found id: " + nameMappingId + " for person: " + firstName + " " + lastName, 3);
 		return nameMappingId;
 	}
 
