@@ -36,6 +36,14 @@ public class AttributeSet {
 		return false;
 	}
 	
+	public String getValuesString() {
+		String allValues = "";
+		for(Attribute curAttr: valInstances) {
+			allValues += "-" + curAttr.getVal();
+		}
+		return allValues;
+	}
+	
 	/*Finds the probablility of a given Name-Value pair in this AttributeSet*/
 	public double findProb(Attribute attr) {
 		if(!attrName.equals(attr.getName())){
