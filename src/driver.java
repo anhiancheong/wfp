@@ -26,7 +26,7 @@ public class driver {
         //read in config file
         loadConfig("testConfig.txt");
         //initialize person
-        Person experimentPerson = new Person("courtney", "walsh", websitesUsed);
+        Person experimentPerson = new Person("amy", "clark", websitesUsed);
         //populate initial values of person
         if(!experimentPerson.populateInitialAttributes(initialAttributeNames)){
         	debugPrint.print("Could not the sufficient ground truth values for this person");
