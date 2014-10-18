@@ -145,4 +145,72 @@ public class dbWrapper {
 		debugPrint.print("Added " + returnAttr.size() + " initial values", 3);
 		return returnAttr;
 	}
+	
+	public void postExperimentResults(Person person){
+		
+		//check if the experiment exists already
+		boolean experimentExists = false;
+		if(!experimentExists) {
+			String experimentId = Constants.experimentID;
+			String websitesString = "";
+			String websitesUsedString = "";
+			String initialAttributesString = "";
+			
+			for(Attribute attr: person.initialAttributes) {
+				initialAttributesString += "-" + attr.getName();
+			}
+			
+			for(String curWebsite:person.websites.keySet()){
+				websitesString += ", " + curWebsite;
+				websitesUsedString += ", T";
+			} 	
+			
+			currentQuery = "INSERT INTO experiment (experiment_id, initial_values, single_site, cross_site, population_engine + "+websitesString+") VALUES (";
+			currentQuery += experimentId + ",";
+			currentQuery += initialAttributesString + ",";
+			currentQuery += Constants.websiteThreshold + ",";
+			currentQuery += Constants.crossSiteThreshold + ",";
+			currentQuery += Constants.populationThreshold + ",";
+			currentQuery += websitesUsedString;
+			currentQuery += ");";
+			
+			execute();
+		}
+		
+		//post inference results
+		for(Attribute attr: person.coreAttributes.values()){
+			currentQuery = "INSERT INTO experiment_attributes (experiment_id, first_name, last_name, gt_id, attribute_name, attribute_value, confidence, source) VALUES (";
+			currentQuery += Constants.experimentID + ",";
+			currentQuery += person.firstName + ",";
+			currentQuery += person.lastName + ",";
+			currentQuery += person.gtId + ",";
+			currentQuery += attr.getName() + ",";
+			currentQuery += attr.getVal() + ",";
+			currentQuery += attr.getConf() + ",";
+			currentQuery += attr.getSource() + ",";
+			
+			currentQuery += ");";
+			execute();
+		}
+		
+		
+	}
+
+	public String getGtId(String firstName, String lastName) {
+		
+		String gtId = "SELECT gt_id FROM gt_person WHERE lower(first_name_ = lower('" + firstName + "') AND lower(last_name) = lower('" + lastName + "');";
+		currentQuery = "";
+		
+		execute();
+		
+		try {
+			currentResultSet.next();
+			gtId = "" + currentResultSet.getInt("gt_id");
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return gtId;
+	}
 }

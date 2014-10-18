@@ -91,4 +91,8 @@ public class Attribute {
 		}
 		return false;
 	}
+
+	public double getConf() {
+		return confidence;
+	}
 }

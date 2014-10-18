@@ -86,7 +86,7 @@ public class ProfileSet {
 		}
 		setLevelAttributes = profileSetAttributes;
 		
-		debugPrint.print("Values in profile set for " + source + " is: " + getAllAttributesString(),3);
+		//debugPrint.print("Values in profile set for " + source + " is: " + getAllAttributesString(),3);
 	}//end method
 	
 	public String getAllAttributesString() {

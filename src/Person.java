@@ -32,6 +32,7 @@ public class Person {
 	HashMap<Integer, Attribute> coreAttributes;
 	
 	String fileDump = "";
+	public String gtId;
 	
 	public Person(String fname, String lname, ArrayList<String> websiteNames) {
 		firstName = fname;
@@ -40,6 +41,8 @@ public class Person {
 		initialAttributes = new ArrayList<Attribute>();
 		websites = new HashMap<String, ProfileSet>();
 		coreAttributes = new HashMap<Integer, Attribute>();
+		
+		gtId = dbWrapper.db.getGtId(firstName, lastName);
 		
 		for(String web: websiteNames) {
 			websites.put(web, new ProfileSet(web));
