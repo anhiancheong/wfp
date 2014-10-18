@@ -139,11 +139,12 @@ public class Person {
 		
 		for(Attribute curNewAttr: newAttr) {
 			if(!coreAttributes.containsKey(curNewAttr.hashCode())){
-				//debugPrint.print("New attribute added to core! I win!");
-				//debugPrint.print(curNewAttr.toString());
+				debugPrint.print("New attribute added to core! I win!",2);
+				debugPrint.print(curNewAttr.toString(),3);
 				coreAttributes.put(curNewAttr.hashCode(), curNewAttr);
 				updated = true;
 			}
+			//if the value is already in the core, check if the current attr has a higher confidence
 			boolean maybeUpdated = coreAttributes.get(curNewAttr.hashCode()).maybeUpdate(curNewAttr);
 			
 			if(maybeUpdated)
