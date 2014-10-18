@@ -66,16 +66,15 @@ public class Profile {
 				//one of the values must agree with the known value
 				if(!attributeSets.get(attr.getName()).hasValue(attr.getVal())) {
 					//The known value is not in this profile
-					debugPrint.print("Value found in set was: " + attributeSets.get(attr.getName()).hasValue(attr.getVal()),3);
-					debugPrint.print("Values were instead: " + attributeSets.get(attr.getName()).getValuesString() ,3);
-					debugPrint.print("Known value: " + attr.getVal()+ " is not in this profile (id="+ profileId +"), it will be filtered", 3);
+					//debugPrint.print("Value found in set was: " + attributeSets.get(attr.getName()).hasValue(attr.getVal()),3);
+					//debugPrint.print("Values were instead: " + attributeSets.get(attr.getName()).getValuesString() ,3);
+					//debugPrint.print("Known value: " + attr.getVal()+ " is not in this profile (id="+ profileId +"), it will be filtered", 3);
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
 }
 
 //OLD CODE

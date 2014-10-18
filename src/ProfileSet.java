@@ -85,7 +85,18 @@ public class ProfileSet {
 			}
 		}
 		setLevelAttributes = profileSetAttributes;
+		
+		debugPrint.print("Values in profile set for " + source + " is: " + getAllAttributesString(),3);
 	}//end method
+	
+	public String getAllAttributesString() {
+		String retStr = "Attributes: \n";
+		
+		for(AttributeSet attrS: setLevelAttributes.values()) {
+			retStr += attrS.toString() + '\n';
+		}
+		return retStr;
+	}
 	
 	public ArrayList<Attribute> getAttrAboveThreshold(double threshold){
 		//debugPrint.print("Determining which attributes are above threshold");
