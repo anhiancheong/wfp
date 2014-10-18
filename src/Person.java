@@ -126,6 +126,7 @@ public class Person {
 		}
 		crossResult = updateCore(crossSiteList);
 		retVal = indivResult || crossResult;
+		debugPrint.print("Did any new values get added to the core or confidences updated?", 3);
 		return retVal;
 	}
 	
