@@ -124,9 +124,10 @@ public class Person {
 				crossSiteList.add(new Attribute(curAttr.getName(), curAttr.getVal(), curAttr.getAvgConf(), curAttr.getSource() + ",cross-site"));
 			}
 		}
+		debugPrint.print("Number of possible cross-site values: " + crossSiteList.size(), 3);
 		crossResult = updateCore(crossSiteList);
 		retVal = indivResult || crossResult;
-		debugPrint.print("Did any new values get added to the core or confidences updated?", 3);
+		debugPrint.print("Did any new values get added to the core or confidences updated? " + retVal, 3);
 		return retVal;
 	}
 	
