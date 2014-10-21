@@ -123,11 +123,14 @@ public class Person {
 		ArrayList<Attribute> crossSiteList = new ArrayList<Attribute>();
 		for(Integer i: crossSiteAttributes.keySet()) {
 			Attribute curAttr = crossSiteAttributes.get(i);
+			//If the attribute occured on more than 1 website
 			if(curAttr.getCount() > 1) {
 				crossSiteList.add(new Attribute(curAttr.getName(), curAttr.getVal(), curAttr.getAvgConf(), curAttr.getSource() + ",cross-site"));
+			    debugPrint.print("Found a cross-site attribute - " + curAttr.getVal(), 4);
 			}
 		}
 		debugPrint.print("Number of possible cross-site values: " + crossSiteList.size(), 3);
+		//update the core if any of the cross site attributes are not yet present
 		crossResult = updateCore(crossSiteList);
 		retVal = indivResult || crossResult;
 		debugPrint.print("Did any new values get added to the core or confidences updated? " + retVal, 3);

@@ -49,6 +49,7 @@ public class driver {
         
         //post results to database
 		experimentPerson.outputLogToFile();
+		dbWrapper.db.postExperimentResults(experimentPerson);
 	}
 
 	
