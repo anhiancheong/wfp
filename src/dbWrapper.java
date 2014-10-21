@@ -187,7 +187,7 @@ public class dbWrapper {
 			currentQuery += "'" + attr.getName() + "',";
 			currentQuery += "'" + attr.getVal() + "',";
 			currentQuery += attr.getConf() + ",";
-			currentQuery += "'" + attr.getSource() + "',";
+			currentQuery += "'" + attr.getSource() + "'";
 			
 			currentQuery += ");";
 			debugPrint.print(currentQuery,4);
