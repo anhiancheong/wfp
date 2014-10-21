@@ -167,10 +167,10 @@ public class dbWrapper {
 			
 			currentQuery = "INSERT INTO experiment (experiment_id, initial_values, single_site, cross_site, population_engine"+websitesString+") VALUES (";
 			currentQuery += experimentId + ",";
-			currentQuery += initialAttributesString + ",";
+			currentQuery += "'" + initialAttributesString + "',";
 			currentQuery += Constants.websiteThreshold + ",";
 			currentQuery += Constants.crossSiteThreshold + ",";
-			currentQuery += Constants.populationThreshold + ",";
+			currentQuery += Constants.populationThreshold;
 			currentQuery += websitesUsedString;
 			currentQuery += ");";
 			debugPrint.print(currentQuery,4);
