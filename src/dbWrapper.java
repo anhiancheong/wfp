@@ -156,7 +156,7 @@ public class dbWrapper {
 	public void postExperimentResults(Person person){
 		
 		//check if the experiment exists already
-		boolean experimentExists = false;
+		boolean experimentExists = ExperimentConstants.experimentCreated;
 		if(!experimentExists) {
 			String experimentId = ExperimentConstants.experimentID;
 			String websitesString = "";
@@ -182,6 +182,7 @@ public class dbWrapper {
 			currentQuery += ");";
 			debugPrint.print(currentQuery,4);
 			execute();
+			ExperimentConstants.experimentCreated = true;
 		}
 		
 		//post inference results
