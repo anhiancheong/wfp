@@ -198,9 +198,8 @@ public class dbWrapper {
 
 	public String getGtId(String firstName, String lastName) {
 		
-		String gtId = "SELECT gt_id FROM gt_person WHERE lower(first_name_ = lower('" + firstName + "') AND lower(last_name) = lower('" + lastName + "');";
-		currentQuery = "";
-		
+		String gtId = "";
+		currentQuery = "SELECT gt_id FROM gt_person WHERE lower(first_name_ = lower('" + firstName + "') AND lower(last_name) = lower('" + lastName + "');";		
 		execute();
 		
 		try {
