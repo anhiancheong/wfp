@@ -43,7 +43,7 @@ public class dbWrapper {
 	public static void initGlobalWrappers() {
 		db = new dbWrapper();
 		try {
-			populationDbConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webfootprint?user=kevin&password=kevin");
+			populationDbConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webfootprint_result?user=kevin&password=kevin");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

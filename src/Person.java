@@ -193,7 +193,7 @@ public class Person {
 	}
 	public void populationInfer() {
 		// TODO Auto-generated method stub
-		
+	  debugPrint.print("Starting Population Inference Engine step", 5);
 		/*Setup data strucutre to pass to Yifang's code*/
 	  HashMap<String, HashMap<String, HashSet<String>>> data = new HashMap<String, HashMap<String, HashSet<String>>>();
 	  //<User ID <Attribute Name, <Values>>
@@ -246,7 +246,7 @@ public class Person {
 			}
 		}
 	}
-	
+	debugPrint.print("Ending Population Inference Engine Step", 5);
 	updateCore(populationInferenceAttributes);
 	
 	}
