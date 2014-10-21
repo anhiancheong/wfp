@@ -173,7 +173,7 @@ public class dbWrapper {
 			currentQuery += Constants.populationThreshold + ",";
 			currentQuery += websitesUsedString;
 			currentQuery += ");";
-			
+			debugPrint.print(currentQuery,4);
 			execute();
 		}
 		
@@ -190,6 +190,7 @@ public class dbWrapper {
 			currentQuery += attr.getSource() + ",";
 			
 			currentQuery += ");";
+			debugPrint.print(currentQuery,4);
 			execute();
 		}
 		
