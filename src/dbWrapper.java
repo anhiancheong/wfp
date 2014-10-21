@@ -165,7 +165,7 @@ public class dbWrapper {
 				websitesUsedString += ", T";
 			} 	
 			
-			currentQuery = "INSERT INTO experiment (experiment_id, initial_values, single_site, cross_site, population_engine"+websitesString+") VALUES (";
+			currentQuery = "INSERT INTO experiment (experiment_id, initial_attributes, single_site, cross_site, population_engine"+websitesString+") VALUES (";
 			currentQuery += experimentId + ",";
 			currentQuery += "'" + initialAttributesString + "',";
 			currentQuery += Constants.websiteThreshold + ",";
