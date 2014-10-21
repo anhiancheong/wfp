@@ -162,7 +162,7 @@ public class dbWrapper {
 			
 			for(String curWebsite:person.websites.keySet()){
 				websitesString += ", " + curWebsite;
-				websitesUsedString += ", T";
+				websitesUsedString += ", True";
 			} 	
 			
 			currentQuery = "INSERT INTO experiment (experiment_id, initial_attributes, single_site, cross_site, population_engine"+websitesString+") VALUES (";
