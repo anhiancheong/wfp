@@ -181,13 +181,13 @@ public class dbWrapper {
 		for(Attribute attr: person.coreAttributes.values()){
 			currentQuery = "INSERT INTO experiment_attributes (experiment_id, first_name, last_name, gt_id, attribute_name, attribute_value, confidence, source) VALUES (";
 			currentQuery += Constants.experimentID + ",";
-			currentQuery += person.firstName + ",";
-			currentQuery += person.lastName + ",";
+			currentQuery += "'" + person.firstName + "',";
+			currentQuery += "'" + person.lastName + "',";
 			currentQuery += person.gtId + ",";
-			currentQuery += attr.getName() + ",";
-			currentQuery += attr.getVal() + ",";
+			currentQuery += "'" + attr.getName() + "',";
+			currentQuery += "'" + attr.getVal() + "',";
 			currentQuery += attr.getConf() + ",";
-			currentQuery += attr.getSource() + ",";
+			currentQuery += "'" + attr.getSource() + "',";
 			
 			currentQuery += ");";
 			debugPrint.print(currentQuery,4);
