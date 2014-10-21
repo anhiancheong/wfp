@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,49 +15,70 @@ public class driver {
 
 	static ArrayList<String> websitesUsed = new ArrayList<String>();
 	static ArrayList<String> initialAttributeNames = new ArrayList<String>();
+	static String nameFile = "names.txt";
+	static String configFile = "config.txt";
+	static String logFile = "log.txt";
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
+		parseParams(args);
 		// TODO Auto-generated method stub
 		dbWrapper.initGlobalWrapper();
 
-        driver.testNameFetch();
         //debugPrint.print("Driver finished");
         //read in config file
-        loadConfig("testConfig.txt");
-        //initialize person
-        Person experimentPerson = new Person("amy", "allen", websitesUsed);
-        //populate initial values of person
-        if(!experimentPerson.populateInitialAttributes(initialAttributeNames)){
-        	debugPrint.print("Could not the sufficient ground truth values for this person");
-        	return;
-        } 
-        experimentPerson.outputStateToLog("After Initial Attributes Collected");
-        //while inference is true, infer
-        int round = 1;
-        //debugPrint.print("Starting Inference");
-        while(experimentPerson.infer()){
-        	debugPrint.print("Infering.....round" + round,3);
-        	experimentPerson.outputStateToLog("Inference Round " + round);
-        	round++;
+        loadConfig(configFile);
+        try {
+        	
+            FileReader fr = new FileReader(nameFile);
+            BufferedReader br = new BufferedReader(fr);
+            String nameStr = "";
+            while((nameStr = br.readLine()) != null) {
+            	
+            	String[] nameArr = nameStr.split("|");
+            	String firstName = nameArr[0];
+            	String lastName = nameArr[1];
+            	//initialize person
+                Person experimentPerson = new Person(firstName, lastName, websitesUsed);
+                //populate initial values of person
+                if(!experimentPerson.populateInitialAttributes(initialAttributeNames)){
+                	debugPrint.print("Could not the sufficient ground truth values for this person");
+                	return;
+                } 
+                experimentPerson.outputStateToLog("After Initial Attributes Collected");
+                //while inference is true, infer
+                int round = 1;
+                //debugPrint.print("Starting Inference");
+                while(experimentPerson.infer()){
+                	debugPrint.print("Infering.....round" + round,3);
+                	experimentPerson.outputStateToLog("Inference Round " + round);
+                	round++;
+                }
+                experimentPerson.outputStateToLog("After last Inference Round");
+                //call population engine
+
+                
+                //post results to database
+        		experimentPerson.outputLogToFile();
+        		dbWrapper.db.postExperimentResults(experimentPerson);       	
+            }
         }
-        experimentPerson.outputStateToLog("After last Inference Round");
-        //call population engine
-        
-        
-        //while inference is true
-        
-        //post results to database
-		experimentPerson.outputLogToFile();
-		dbWrapper.db.postExperimentResults(experimentPerson);
+        catch (IOException e) {
+        	e.printStackTrace();
+        }   
 	}
 
 	
-	public static void testNameFetch() {
-		
-		String id = dbWrapper.db.queryNameMapping("anna", "genis");
-		//debugPrint.print("Name Mapping Id for Anna Genis is: " + id);
+	public static void parseParams(String[] args) {
+		if(args.length < 3) {
+			System.out.println("Insufficent Parameters - Expected params file.jar <config.txt> <names.txt> <debug mode>");
+			System.exit(0);
+		}
+		configFile = args[0];
+		nameFile = args[1];
+		debugPrint.printSet = Integer.parseInt(args[2]);
 	}
 	
 	/** This method will read a json configured file and load the various run parameters
