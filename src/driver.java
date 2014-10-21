@@ -40,6 +40,7 @@ public class driver {
             	String[] nameArr = nameStr.split("|");
             	String firstName = nameArr[0];
             	String lastName = nameArr[1];
+            	debugPrint.print("Experiment on " + firstName  + " " + lastName);
             	//initialize person
                 Person experimentPerson = new Person(firstName, lastName, websitesUsed);
                 //populate initial values of person
