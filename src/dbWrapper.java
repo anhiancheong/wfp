@@ -22,6 +22,7 @@ public class dbWrapper {
 	ResultSet currentResultSet;
 	
 	public static dbWrapper db;
+	public static Connection populationDbConn;
 	
 	
 	public dbWrapper() {
@@ -39,9 +40,15 @@ public class dbWrapper {
 		}
 	}
 	
-	public static void initGlobalWrapper() {
+	public static void initGlobalWrappers() {
 		db = new dbWrapper();
-	}
+		try {
+			populationDbConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webfootprint?user=kevin&password=kevin");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
 	
 	public void execute() {
 		try {			
@@ -151,7 +158,7 @@ public class dbWrapper {
 		//check if the experiment exists already
 		boolean experimentExists = false;
 		if(!experimentExists) {
-			String experimentId = Constants.experimentID;
+			String experimentId = ExperimentConstants.experimentID;
 			String websitesString = "";
 			String websitesUsedString = "";
 			String initialAttributesString = "";
@@ -168,9 +175,9 @@ public class dbWrapper {
 			currentQuery = "INSERT INTO experiment (experiment_id, initial_attributes, single_site, cross_site, population_engine"+websitesString+") VALUES (";
 			currentQuery += experimentId + ",";
 			currentQuery += "'" + initialAttributesString + "',";
-			currentQuery += Constants.websiteThreshold + ",";
-			currentQuery += Constants.crossSiteThreshold + ",";
-			currentQuery += Constants.populationThreshold;
+			currentQuery += ExperimentConstants.websiteThreshold + ",";
+			currentQuery += ExperimentConstants.crossSiteThreshold + ",";
+			currentQuery += ExperimentConstants.populationThreshold;
 			currentQuery += websitesUsedString;
 			currentQuery += ");";
 			debugPrint.print(currentQuery,4);
@@ -180,7 +187,7 @@ public class dbWrapper {
 		//post inference results
 		for(Attribute attr: person.coreAttributes.values()){
 			currentQuery = "INSERT INTO experiment_attributes (experiment_id, first_name, last_name, gt_id, attribute_name, attribute_value, confidence, source) VALUES (";
-			currentQuery += Constants.experimentID + ",";
+			currentQuery += ExperimentConstants.experimentID + ",";
 			currentQuery += "'" + person.firstName + "',";
 			currentQuery += "'" + person.lastName + "',";
 			currentQuery += person.gtId + ",";

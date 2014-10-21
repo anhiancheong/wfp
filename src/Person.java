@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import webfootprint.WebFootPrint2;
+import webfootprint.engine.data.Constants;
+import webfootprint.engine.data.Inference;
+import webfootprint.engine.data.Predict;
+import webfootprint.engine.data.WebUser;
+
 
 
 /*
@@ -101,7 +107,7 @@ public class Person {
 			ps.filterProfiles(filterList);
 			//debugPrint.print("Calculating individual website attributes....");
 			ps.calculateWebsiteAttributes();
-			indivResult = updateCore(ps.getAttrAboveThreshold(Constants.websiteThreshold));
+			indivResult = updateCore(ps.getAttrAboveThreshold(ExperimentConstants.websiteThreshold));
 		}
 		
 		debugPrint.print("Calculating cross site attributes");
@@ -110,7 +116,7 @@ public class Person {
 		for(String website: websites.keySet()) {
 			//can assume probabilities already calculated and profiles filtered
 			ProfileSet ps = websites.get(website);
-			ArrayList<Attribute> crossSite = ps.getAttrAboveThreshold(Constants.crossSiteThreshold);
+			ArrayList<Attribute> crossSite = ps.getAttrAboveThreshold(ExperimentConstants.crossSiteThreshold);
 			for(Attribute attr: crossSite) {
 				if(!crossSiteAttributes.containsKey(attr.hashCode())) {
 					crossSiteAttributes.put(attr.hashCode(), attr);
@@ -175,7 +181,7 @@ public class Person {
 	public void outputLogToFile(){
 		FileWriter fw;
 		try {
-			fw = new FileWriter("Log" + Constants.experimentID + ".txt");
+			fw = new FileWriter("Log" + ExperimentConstants.experimentID + ".txt");
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(fileDump);
 			bw.close();
@@ -185,6 +191,63 @@ public class Person {
 			e.printStackTrace();
 		}
 	}
+	public void populationInfer() {
+		// TODO Auto-generated method stub
+		
+		/*Setup data strucutre to pass to Yifang's code*/
+	  HashMap<String, HashMap<String, HashSet<String>>> data = new HashMap<String, HashMap<String, HashSet<String>>>();
+	  //<User ID <Attribute Name, <Values>>
+	  HashMap<String, HashSet<String>> valueSet = new HashMap<String, HashSet<String>>();
+	  for(Attribute attr: coreAttributes.values()){
+		  if(!valueSet.containsKey(attr.getName())) {
+			  valueSet.put(attr.getName(), new HashSet<String>());
+		  }
+		  valueSet.get(attr.getName()).add(attr.getVal());
+	  }
+	  data.put("" + gtId, valueSet);
 	
+	WebFootPrint2 popInferenceEngine = new WebFootPrint2(dbWrapper.populationDbConn);
+	ArrayList<WebUser> popResults = popInferenceEngine.getInferences(data);
 	
+	ArrayList<Attribute> populationInferenceAttributes = new ArrayList<Attribute>();
+	
+	for(int i = 0; i < popResults.size(); i++) {
+		WebUser user = popResults.get(i);
+		System.out.println("USER: " + user.getProfile().getUserId());
+		Inference inference = user.getInference();
+		for(int j = 0; j < inference.size(); j++) {
+			String attribute = inference.getAttribute(j);
+			ArrayList array = inference.getAttributeValue(attribute);
+			for(int k = 0; k < array.size(); k++) {
+				Predict predict = (Predict)array.get(k);
+				String algorithm;
+				String confidence;
+				switch(predict.getAlgorithm()) {
+				case(Constants.ASSOCIATION_RULE_MINING):
+					algorithm = "APRIORI";
+					confidence = "apriori_confidence";
+					break;
+				case(Constants.NAIVE_BAYES):
+					algorithm = "NAIVE_BAYES";
+					confidence = "naive_bayes_majority_confidence";
+					break;
+				case(Constants.LDA):
+				default:
+					algorithm = "LDA";		
+					confidence = "lda_majority_vote_confidence";
+					break;
+				}
+				//System.out.println("ATTRIBUTE: " + attribute + "\tALGRORITHM: " + algorithm + "\tANSWER: " + predict.getAnswer() + "\tCONFIDENCE: " + (Double)predict.getUserData().getUserDatum(confidence));
+			    double attrConf = (Double)predict.getUserData().getUserDatum(confidence);
+				if(attrConf >= ExperimentConstants.populationThreshold) {
+			    	populationInferenceAttributes.add(new Attribute(attribute, predict.getAnswer(), attrConf, "PopulationEngine-" + algorithm));
+			    	debugPrint.print("Attribute added from population inference engine", 5);
+			    }
+			}
+		}
+	}
+	
+	updateCore(populationInferenceAttributes);
+	
+	}
 }

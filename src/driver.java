@@ -25,7 +25,7 @@ public class driver {
 		
 		parseParams(args);
 		// TODO Auto-generated method stub
-		dbWrapper.initGlobalWrapper();
+		dbWrapper.initGlobalWrappers();
 
         //debugPrint.print("Driver finished");
         //read in config file
@@ -57,9 +57,17 @@ public class driver {
                 	experimentPerson.outputStateToLog("Inference Round " + round);
                 	round++;
                 }
-                experimentPerson.outputStateToLog("After last Inference Round");
+                experimentPerson.outputStateToLog("After last Inference Round before population");
                 //call population engine
-
+                experimentPerson.populationInfer();
+                experimentPerson.outputStateToLog("After last population inference engine");
+                
+                while(experimentPerson.infer()){
+                	debugPrint.print("Infering.....round" + round,3);
+                	experimentPerson.outputStateToLog("Inference Round post population" + round);
+                	round++;
+                }
+                experimentPerson.outputStateToLog("After last Inference Round after population");
                 
                 //post results to database
         		experimentPerson.outputLogToFile();
@@ -96,13 +104,13 @@ public class driver {
 			 * */
 			System.out.println(params.toString(3));
 
-			Constants.populationThreshold = (float) params.getDouble("confidenceThreshold_forYifang");
+			ExperimentConstants.populationThreshold = (float) params.getDouble("confidenceThreshold_forYifang");
 			
-			Constants.crossSiteThreshold = (float) params.getDouble("aggregateThreshold");
+			ExperimentConstants.crossSiteThreshold = (float) params.getDouble("aggregateThreshold");
 			
-			Constants.websiteThreshold = (float) params.getDouble("individualWebsiteThreshold");
+			ExperimentConstants.websiteThreshold = (float) params.getDouble("individualWebsiteThreshold");
 			
-			Constants.experimentID = "" + params.getInt("experimentId");
+			ExperimentConstants.experimentID = "" + params.getInt("experimentId");
 
 			//Getting which websites this experiment will seek to use
 			JSONArray temp = params.getJSONArray("websites");
