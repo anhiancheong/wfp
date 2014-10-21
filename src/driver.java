@@ -37,7 +37,7 @@ public class driver {
             String nameStr = "";
             while((nameStr = br.readLine()) != null) {
             	
-            	String[] nameArr = nameStr.split("|");
+            	String[] nameArr = nameStr.split("\\|");
             	String firstName = nameArr[0];
             	String lastName = nameArr[1];
             	debugPrint.print("Experiment on " + firstName  + " " + lastName);
