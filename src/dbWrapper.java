@@ -90,7 +90,8 @@ public class dbWrapper {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			//debugPrint.print("Error happened in Name Mapping lookup for person: " + firstName + " " + lastName);
-			System.exit(0);
+			//System.exit(0);
+			return "ERROR";
 		}
 		debugPrint.print("Found id: " + nameMappingId + " for person: " + firstName + " " + lastName, 1);
 		debugPrint.print("Found id: " + nameMappingId + " for person: " + firstName + " " + lastName, 3);
