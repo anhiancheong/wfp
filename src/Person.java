@@ -250,4 +250,20 @@ public class Person {
 	updateCore(populationInferenceAttributes);
 	
 	}
+	/*Checks for website IDs that were found across several websites; if any are found, all attributes from that ID
+	 * are added*/
+	public void checkForCrossSiteProfiles() {
+		// TODO Auto-generated method stub
+		for(Attribute attr:coreAttributes.values()) {
+			//name is the id from a website
+			if(attr.getName().contains("_id")){
+				//the source for that attribute was a cross site attribute
+				if(attr.getSource().contains("cross")) {
+					ArrayList<Attribute> allProfileAttributes = dbWrapper.db.getAllAttributeForProfile(attr.getName().replace("_id","") ,attr.getVal(), attr.confidence);
+					if(allProfileAttributes != null)
+					  updateCore(allProfileAttributes);
+				}
+			}
+		}
+	}
 }

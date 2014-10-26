@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -221,5 +222,27 @@ public class dbWrapper {
 		}
 		
 		return gtId;
+	}
+
+	public ArrayList<Attribute> getAllAttributeForProfile(String websiteName,
+			String value, double confidence) {
+		// TODO Auto-generated method stub
+		ArrayList<Attribute> retList = new ArrayList<Attribute>();
+		currentQuery = "SELECT * FROM " + websiteName + " WHERE '" + websiteName + "_id' = '" + value + "';";
+		execute();
+		
+		try{
+			while(currentResultSet.next()) {
+				String attrName = currentResultSet.getString("attribute_name");
+				String attrValue = currentResultSet.getString("attribute_value");
+				retList.add(new Attribute(attrName, attrValue, confidence, "profileId"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return retList;
 	}
 }
