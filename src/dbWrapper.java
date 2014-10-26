@@ -15,7 +15,7 @@ public class dbWrapper {
 	String username = "kevin";
 	String password = "kevin";
 	String databaseName = "wfp";
-	String hostname = "localhost:5432";
+	String hostname = "localhost";
 	//String hostname = "141.161.20.61:5432";
 	/*Tracks the current sql Statement*/
 	Statement currentStatement;
@@ -30,7 +30,7 @@ public class dbWrapper {
 		Connection conn = null;
 		try {
 			Class.forName("org.postgresql.Driver"); //load the driver
-            conn = DriverManager.getConnection("jdbc:postgresql://"+ hostname +"/" + databaseName +"?user="+username+"&password="+password+"");
+            conn = DriverManager.getConnection("jdbc:postgresql://"+ hostname +":" +ExperimentConstants.portNum+ "/" + databaseName +"?user="+username+"&password="+password+"");
             currentStatement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		}
 		catch(ClassNotFoundException ce){
@@ -44,7 +44,7 @@ public class dbWrapper {
 	public static void initGlobalWrappers() {
 		db = new dbWrapper();
 		try {
-			populationDbConn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/webfootprint_result?user=kevin&password=kevin");
+			populationDbConn = DriverManager.getConnection("jdbc:postgresql://localhost:"+ExperimentConstants.portNum+"/webfootprint_result?user=kevin&password=kevin");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
