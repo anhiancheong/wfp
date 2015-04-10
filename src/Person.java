@@ -241,7 +241,7 @@ public class Person {
 					confidence = "lda_majority_vote_confidence";
 					break;
 				}
-				//System.out.println("ATTRIBUTE: " + attribute + "\tALGRORITHM: " + algorithm + "\tANSWER: " + predict.getAnswer() + "\tCONFIDENCE: " + (Double)predict.getUserData().getUserDatum(confidence));
+				System.out.println("ATTRIBUTE: " + attribute + "\tALGRORITHM: " + algorithm + "\tANSWER: " + predict.getAnswer() + "\tCONFIDENCE: " + (Double)predict.getUserData().getUserDatum(confidence));
 			    double attrConf = (Double)predict.getUserData().getUserDatum(confidence);
 				if(attrConf >= ExperimentConstants.populationThreshold) {
 			    	populationInferenceAttributes.add(new Attribute(attribute, predict.getAnswer(), attrConf, "PopulationEngine-" + algorithm));

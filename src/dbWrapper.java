@@ -123,7 +123,7 @@ public class dbWrapper {
 
 	public ResultSet queryWebsiteAttr(String website, String profileId) {
 		// TODO Auto-generated method stub
-		currentQuery = "SELECT * FROM " + website + " WHERE website_id = '" + profileId + "' ;";
+		currentQuery = "SELECT * FROM " + website + " WHERE website_id = '" + profileId + "' and ignore = FALSE ;";
 		execute();
 		return currentResultSet;
 	}
@@ -228,7 +228,7 @@ public class dbWrapper {
 			String value, double confidence) {
 		// TODO Auto-generated method stub
 		ArrayList<Attribute> retList = new ArrayList<Attribute>();
-		currentQuery = "SELECT * FROM " + websiteName + " WHERE '" + websiteName + "_id' = '" + value + "';";
+		currentQuery = "SELECT * FROM " + websiteName + " WHERE '" + websiteName + "_id' = '" + value + "' and ignore=FALSE;";
 		execute();
 		
 		try{
